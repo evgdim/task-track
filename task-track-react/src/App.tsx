@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Route, Switch } from 'react-router';
+import { Link } from 'react-router-dom';
+
+import './App.css';
+
 import Home from './containers/home/Home';
 import Tasks from './containers/tasks/Tasks';
-import { Link } from 'react-router-dom';
 import NewTask from './containers/new-task/NewTask';
 
 class App extends Component {
