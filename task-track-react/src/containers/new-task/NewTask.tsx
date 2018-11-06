@@ -4,10 +4,13 @@ export interface NewTaskProps {
 }
 
 export default class NewTask extends React.Component<NewTaskProps, any> {
+  handleCreateClick = () => {
+    console.log('click');
+  }
   public render() {
     return (
       <div>
-        New task
+        <button onClick={this.handleCreateClick}>Create</button>
       </div>
     );
   }
