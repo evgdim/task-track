@@ -14,7 +14,7 @@ public class SecurityConfiguration {
     SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http) {
         return http
             .authorizeExchange()
-            .pathMatchers("/token").permitAll()
+            .pathMatchers("/token", "/task", "/h2-console").permitAll()
             .anyExchange().authenticated()
             .and()
             .securityContextRepository(new CustomSecurityContextRepository())
