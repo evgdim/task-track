@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,8 +17,13 @@ public class Task {
 	@GeneratedValue
 	private Long id;
 	private String name;
+	private String description;
 	private LocalDateTime creationTime;
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
 	private User creator;
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User assignee;
+	private Set<Tag> tags;
 }
