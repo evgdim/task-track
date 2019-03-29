@@ -1,10 +1,10 @@
 package com.github.evgdim.tasktrack.repository;
 
-import lombok.RequiredArgsConstructor;
+import com.github.evgdim.tasktrack.model.Task;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@RequiredArgsConstructor
-public class TaskRepository {
+public interface TaskRepository extends PagingAndSortingRepository<Task, Long> {
 
 }
