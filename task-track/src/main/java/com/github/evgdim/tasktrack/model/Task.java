@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -17,4 +16,8 @@ public class Task {
 	@GeneratedValue
 	private Long id;
 	private String name;
+	private LocalDateTime creationTime;
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User creator;
 }
