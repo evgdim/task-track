@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router';
 import './App.css';
 
 import { Login } from './containers/login/Login';
-import { Main } from './containers/main/MainContainer';
+import { Main } from './shared/main/MainContainer';
 
 class App extends Component {
   render() {

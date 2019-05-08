@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link, Route } from 'react-router-dom';
-import Home from '../home/Home';
-import Tasks from '../tasks/Tasks';
-import NewTask from '../new-task/NewTask';
+import Home from '../../containers/home/Home';
+import Tasks from '../../containers/tasks/Tasks';
+import NewTask from '../../containers/new-task/NewTask';
 
 export interface IMainProps {
 }
