@@ -3,6 +3,7 @@ import { Link, Route } from 'react-router-dom';
 import Home from '../../containers/home/Home';
 import Tasks from '../../containers/tasks/Tasks';
 import NewTask from '../../containers/new-task/NewTask';
+import { PrivateRoute } from '../authentication/PrivateRoute';
 
 export interface IMainProps {
 }
@@ -21,8 +22,8 @@ export function Main(props: IMainProps) {
             </nav>
 
             <Route path="/" exact component={Home}></Route>
-            <Route path="/tasks" component={Tasks}></Route>
-            <Route path="/new" component={NewTask}></Route>
+            <PrivateRoute path="/tasks" component={Tasks}></PrivateRoute>
+            <PrivateRoute path="/new" component={NewTask}></PrivateRoute>
         </div>
     );
 }
