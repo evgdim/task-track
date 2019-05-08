@@ -8,7 +8,11 @@ export interface ILoginProps extends RouteComponentProps{
 export function Login(props: ILoginProps) {
     const login = (event: React.FormEvent<HTMLFormElement>) => {
         Auth.authenticate(username, password, () => {
-            props.history.push("/");
+            if(props.location.state.from.pathname) {
+                props.history.push(props.location.state.from.pathname);
+            } else {
+                props.history.push("/");
+            }
         });
         event.preventDefault();
     }
