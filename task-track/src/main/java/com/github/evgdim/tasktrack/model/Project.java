@@ -11,4 +11,6 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "lead_id")
     private User lead;
+    @OneToOne(mappedBy = "project")
+    private Backlog backlog;
 }

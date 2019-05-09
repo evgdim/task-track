@@ -23,7 +23,7 @@ public class Task {
 	@JoinColumn(name = "creator_id")
 	private User creator;
 	@ManyToOne
-	@JoinColumn(name = "creator_id")
+	@JoinColumn(name = "assignee_id")
 	private User assignee;
-	private Set<Tag> tags;
+	//private Set<Tag> tags;
 }
