@@ -1,9 +1,12 @@
 package com.github.evgdim.tasktrack.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Data
 public class Sprint {
     @GeneratedValue
     @Id

@@ -1,0 +1,3 @@
+create project
+------------------------------
+curl -i -X POST -H "Content-Type: application/json" -d'{"name":"MyProject"}' http://localhost:8080/projects
