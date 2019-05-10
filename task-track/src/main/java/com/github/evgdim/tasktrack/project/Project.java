@@ -1,12 +1,13 @@
-package com.github.evgdim.tasktrack.model;
+package com.github.evgdim.tasktrack.project;
 
+import com.github.evgdim.tasktrack.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-public class Project {
+class Project {
     @Id
     @GeneratedValue
     private Long id;

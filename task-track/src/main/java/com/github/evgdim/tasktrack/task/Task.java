@@ -1,5 +1,8 @@
-package com.github.evgdim.tasktrack.model;
+package com.github.evgdim.tasktrack.task;
 
+import com.github.evgdim.tasktrack.project.Backlog;
+import com.github.evgdim.tasktrack.project.Sprint;
+import com.github.evgdim.tasktrack.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +10,6 @@ import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor

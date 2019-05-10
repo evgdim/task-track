@@ -1,4 +1,4 @@
-package com.github.evgdim.tasktrack.security;
+package com.github.evgdim.tasktrack.shared.security;
 
 import lombok.Data;
 

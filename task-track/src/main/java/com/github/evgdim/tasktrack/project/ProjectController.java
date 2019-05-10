@@ -1,16 +1,14 @@
-package com.github.evgdim.tasktrack.controller;
+package com.github.evgdim.tasktrack.project;
 
-import com.github.evgdim.tasktrack.model.Project;
-import com.github.evgdim.tasktrack.repository.ProjectRepository;
+import com.github.evgdim.tasktrack.project.Project;
+import com.github.evgdim.tasktrack.project.ProjectRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/projects")
-public class ProjectController {
+class ProjectController {
     private final ProjectRepository projectRepository;
 
     public ProjectController(ProjectRepository projectRepository) {

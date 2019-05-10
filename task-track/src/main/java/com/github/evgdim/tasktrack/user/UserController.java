@@ -1,10 +1,11 @@
-package com.github.evgdim.tasktrack.controller;
+package com.github.evgdim.tasktrack.user;
 
-import com.github.evgdim.tasktrack.model.User;
-import com.github.evgdim.tasktrack.repository.UserRepository;
+import com.github.evgdim.tasktrack.user.User;
+import com.github.evgdim.tasktrack.user.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/users")

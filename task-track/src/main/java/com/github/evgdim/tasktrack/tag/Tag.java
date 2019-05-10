@@ -1,4 +1,4 @@
-package com.github.evgdim.tasktrack.model;
+package com.github.evgdim.tasktrack.tag;
 
 import lombok.Data;
 

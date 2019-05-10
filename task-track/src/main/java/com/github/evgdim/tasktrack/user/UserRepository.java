@@ -1,6 +1,5 @@
-package com.github.evgdim.tasktrack.repository;
+package com.github.evgdim.tasktrack.user;
 
-import com.github.evgdim.tasktrack.model.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
