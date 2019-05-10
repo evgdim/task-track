@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ProjectServiceImpl implements ProjectService {
+class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final UserService userService;
 

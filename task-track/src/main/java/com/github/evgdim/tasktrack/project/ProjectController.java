@@ -1,7 +1,7 @@
 package com.github.evgdim.tasktrack.project;
 
-import com.github.evgdim.tasktrack.project.Project;
-import com.github.evgdim.tasktrack.project.ProjectRepository;
+import io.vavr.control.Try;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -10,9 +10,11 @@ import java.util.Optional;
 @RequestMapping("/projects")
 class ProjectController {
     private final ProjectRepository projectRepository;
+    private final ProjectService projectService;
 
-    public ProjectController(ProjectRepository projectRepository) {
+    public ProjectController(ProjectRepository projectRepository, ProjectService projectService) {
         this.projectRepository = projectRepository;
+        this.projectService = projectService;
     }
 
     @GetMapping
@@ -26,7 +28,16 @@ class ProjectController {
     }
 
     @PostMapping
-    public Project post(@RequestBody Project project) {
-        return this.projectRepository.save(project);
+    public ResponseEntity<?> post(@RequestBody CreateProjectRequest project) {
+        Try<Project> createProject = this.projectService.createProject(project.name, project.leadUserId);
+        return null;
+//        return createProject
+//                .map(p -> ResponseEntity.ok(p))
+//                .getOrElseGet(t -> ResponseEntity.status(500).body(t));
     }
+}
+
+class CreateProjectRequest {
+    String name;
+    Long leadUserId;
 }
