@@ -1,17 +1,22 @@
 import * as React from 'react';
+import { useFormInput } from '../../shared/form-hook/FormInput';
 
-export interface NewTaskProps {
+export interface INewTaskProps {
 }
 
-export default class NewTask extends React.Component<NewTaskProps, any> {
-  handleCreateClick = () => {
-    console.log('click');
+export default function NewTask(props: INewTaskProps) {
+  const taskName = useFormInput("");
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(taskName.value);
+    e.preventDefault();
   }
-  public render() {
-    return (
-      <div>
-        <button onClick={this.handleCreateClick}>Create</button>
-      </div>
-    );
-  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input {...taskName}></input>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
 }
