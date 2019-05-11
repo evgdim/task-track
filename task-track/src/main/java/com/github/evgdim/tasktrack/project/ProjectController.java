@@ -1,6 +1,8 @@
 package com.github.evgdim.tasktrack.project;
 
 import io.vavr.control.Try;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/projects")
+@Slf4j
 class ProjectController {
     private final ProjectRepository projectRepository;
     private final ProjectService projectService;
@@ -29,15 +32,18 @@ class ProjectController {
 
     @PostMapping
     public ResponseEntity<?> post(@RequestBody CreateProjectRequest project) {
-        Try<Project> createProject = this.projectService.createProject(project.name, project.leadUserId);
-        return null;
-//        return createProject
-//                .map(p -> ResponseEntity.ok(p))
-//                .getOrElseGet(t -> ResponseEntity.status(500).body(t));
+        Try<Project> createProject = this.projectService.createProject(project.getName(), project.getLeadUserId());
+        if(createProject.isSuccess()) {
+            return ResponseEntity.ok(createProject.get());
+        } else {
+            Throwable cause = createProject.getCause();
+            log.error("Error in controller",cause);
+            return ResponseEntity.status(500).body(cause);
+        }
     }
 }
-
+@Data
 class CreateProjectRequest {
-    String name;
-    Long leadUserId;
+    private String name;
+    private Long leadUserId;
 }
