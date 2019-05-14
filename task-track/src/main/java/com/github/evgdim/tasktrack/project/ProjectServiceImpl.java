@@ -11,10 +11,12 @@ import java.util.Optional;
 class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final UserService userService;
+    private final BacklogRepository backlogRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, UserService userService) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, UserService userService, BacklogRepository backlogRepository) {
         this.projectRepository = projectRepository;
         this.userService = userService;
+        this.backlogRepository = backlogRepository;
     }
 
     @Override
@@ -23,10 +25,10 @@ class ProjectServiceImpl implements ProjectService {
             Optional<User> leadUser = userService.findById(leadUserId);
             if(!leadUser.isPresent())
                 throw new UserNotFoundException(leadUserId, "ProjectServiceImpl::crateProject");
-
+            Backlog savedBacklog = this.backlogRepository.save(new Backlog());
             Project project = new Project();
             project.setName(name);
-            project.setBacklog(new Backlog());
+            project.setBacklog(savedBacklog);
             project.setLead(leadUser.get());
             Project savedProject = this.projectRepository.save(project);
             return project;
