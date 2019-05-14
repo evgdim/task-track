@@ -33,11 +33,12 @@ class ProjectController {
     @PostMapping
     public ResponseEntity<?> post(@RequestBody CreateProjectRequest project) {
         Try<Project> createProject = this.projectService.createProject(project.getName(), project.getLeadUserId());
+        createProject.onSuccess(p -> log.info("POST {}", p));
+        createProject.onFailure(e -> log.error("POST ERROR", e));
         if(createProject.isSuccess()) {
             return ResponseEntity.ok(createProject.get());
         } else {
             Throwable cause = createProject.getCause();
-            log.error("Error in controller",cause);
             return ResponseEntity.status(500).body(cause);
         }
     }

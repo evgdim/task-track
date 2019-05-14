@@ -1,3 +1,7 @@
-create project
+Project
 ------------------------------
 curl -i -X POST -H "Content-Type: application/json" -d'{"name":"MyProject"}' http://localhost:8080/projects
+
+User
+------------------------------
+curl -i -X POST -H "Content-Type: application/json" -d'{"name":"MyUser", "password": "pass"}' http://localhost:8080/users
