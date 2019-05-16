@@ -23,16 +23,14 @@ class ProjectServiceImpl implements ProjectService {
             userService.findById(leadUserId)
                     .log()
                     .switchIfEmpty(Mono.error(new UserNotFoundException(leadUserId, "ProjectServiceImpl::crateProject")))
-                    .flatMap(u -> this.backlogRepository.save(new Backlog())
-                                        .map(b -> Tuple.of(u, b)))
-                    .log()
-                    .flatMap(t -> {
+                    .flatMap(user -> {
                         Project project = new Project();
                         project.setName(name);
-                        project.setBacklog(t._2);
-                        project.setLead(t._1);
+                        project.setLeadId(user.getId());
                         return this.projectRepository.save(project);
                     })
+                    .flatMap(project -> this.backlogRepository.save(new Backlog(project.getId()))
+                            .map(b -> project))
                     .log();
     }
 

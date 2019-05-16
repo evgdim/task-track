@@ -8,5 +8,9 @@ import org.springframework.data.annotation.Id;
 public class Backlog {
     @Id
     private Long id;
-    private Project project;
+    private Long projectId;
+
+    public Backlog(Long projectId) {
+        this.projectId = projectId;
+    }
 }

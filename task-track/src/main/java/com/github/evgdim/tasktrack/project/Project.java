@@ -10,6 +10,6 @@ class Project {
     @Id
     private Long id;
     private String name;
-    private User lead;
-    private Backlog backlog;
+    private Long leadId;
+    private Long backlogId;
 }

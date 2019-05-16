@@ -28,6 +28,7 @@ public class ProjectIT {
         Mono<User> savedUser = userRepository.save(user);
         Mono<Project> createProject = projectService.createProject("test", savedUser.block().getId());
         StepVerifier.create(createProject)
+                .expectNextCount(1)
                 .expectComplete()
                 .verify();
     }
