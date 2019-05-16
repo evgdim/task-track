@@ -21,16 +21,19 @@ class ProjectServiceImpl implements ProjectService {
     public Mono<Project> createProject(String name, Long leadUserId) {
         return
             userService.findById(leadUserId)
+                    .log()
                     .switchIfEmpty(Mono.error(new UserNotFoundException(leadUserId, "ProjectServiceImpl::crateProject")))
                     .flatMap(u -> this.backlogRepository.save(new Backlog())
                                         .map(b -> Tuple.of(u, b)))
+                    .log()
                     .flatMap(t -> {
                         Project project = new Project();
                         project.setName(name);
                         project.setBacklog(t._2);
                         project.setLead(t._1);
                         return this.projectRepository.save(project);
-                    });
+                    })
+                    .log();
     }
 
 }
