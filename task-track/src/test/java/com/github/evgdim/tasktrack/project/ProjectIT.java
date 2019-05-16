@@ -21,7 +21,7 @@ public class ProjectIT {
     @Autowired
     private UserRepository userRepository;
     @Test
-    public void createProject_ShoulWork() {
+    public void createProject_ShoulReturnTheCreatedProject() {
         User user = new User();
         user.setName("test");
         user.setPassword("pass");
