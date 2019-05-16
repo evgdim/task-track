@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,8 +25,10 @@ public class ProjectIT {
         User user = new User();
         user.setName("test");
         user.setPassword("pass");
-        User savedUser = userRepository.save(user);
-        Try<Project> createProject = projectService.createProject("test", savedUser.getId());
-        Assertions.assertThat(createProject.isSuccess()).isTrue();
+        Mono<User> savedUser = userRepository.save(user);
+        Mono<Project> createProject = projectService.createProject("test", savedUser.block().getId());
+        StepVerifier.create(createProject)
+                .expectComplete()
+                .verify();
     }
 }

@@ -1,19 +1,14 @@
 package com.github.evgdim.tasktrack.project;
 
 import lombok.Data;
-
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
 import java.time.LocalDate;
 
-@Entity
 @Data
 public class Sprint {
-    @GeneratedValue
     @Id
     private Long id;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "project_id")
     private Project project;
     private LocalDate start;
     private LocalDate end;

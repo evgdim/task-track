@@ -3,6 +3,8 @@ package com.github.evgdim.tasktrack.user;
 import com.github.evgdim.tasktrack.user.User;
 import com.github.evgdim.tasktrack.user.UserRepository;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -17,17 +19,17 @@ public class UserController {
     }
 
     @GetMapping
-    public Iterable<User> getAll() {
+    public Flux<User> getAll() {
         return this.userRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getById(@PathVariable Long id) {
+    public Mono<User> getById(@PathVariable Long id) {
         return this.userRepository.findById(id);
     }
 
     @PostMapping
-    public User post(@RequestBody User project) {
+    public Mono<User> post(@RequestBody User project) {
         return this.userRepository.save(project);
     }
 }

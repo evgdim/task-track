@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
@@ -21,26 +23,22 @@ class ProjectController {
     }
 
     @GetMapping
-    public Iterable<Project> getAll() {
+    public Flux<Project> getAll() {
         return this.projectRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Project> getById(@PathVariable Long id) {
+    public Mono<Project> getById(@PathVariable Long id) {
         return this.projectRepository.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<?> post(@RequestBody CreateProjectRequest project) {
-        Try<Project> createProject = this.projectService.createProject(project.getName(), project.getLeadUserId());
-        createProject.onSuccess(p -> log.info("POST {}", p));
-        createProject.onFailure(e -> log.error("POST ERROR", e));
-        if(createProject.isSuccess()) {
-            return ResponseEntity.ok(createProject.get());
-        } else {
-            Throwable cause = createProject.getCause();
-            return ResponseEntity.status(500).body(cause);
-        }
+    public Mono<?> post(@RequestBody CreateProjectRequest project) {
+        return this.projectService.createProject(project.getName(), project.getLeadUserId())
+                .doOnSuccess(p -> log.info("POST {}", p))
+                .doOnError(e -> log.error("POST ERROR", e))
+                .map(p -> ResponseEntity.ok(p));
+                //.onErrorMap(t -> t);
     }
 }
 @Data

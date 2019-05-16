@@ -1,6 +1,7 @@
 package com.github.evgdim.tasktrack.user;
 
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 @Service
@@ -12,7 +13,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long userId) {
+    public Mono<User> findById(Long userId) {
         return this.userRepository.findById(userId);
     }
 }

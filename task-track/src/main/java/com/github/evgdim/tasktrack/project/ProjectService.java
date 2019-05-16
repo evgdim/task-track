@@ -1,7 +1,8 @@
 package com.github.evgdim.tasktrack.project;
 
 import io.vavr.control.Try;
+import reactor.core.publisher.Mono;
 
 interface ProjectService {
-    Try<Project> createProject(String name, Long leadUserId);
+    Mono<Project> createProject(String name, Long leadUserId);
 }

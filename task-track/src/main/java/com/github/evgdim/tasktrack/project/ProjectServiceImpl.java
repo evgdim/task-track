@@ -1,11 +1,9 @@
 package com.github.evgdim.tasktrack.project;
 
-import com.github.evgdim.tasktrack.user.User;
 import com.github.evgdim.tasktrack.user.UserService;
-import io.vavr.control.Try;
+import io.vavr.Tuple;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import reactor.core.publisher.Mono;
 
 @Service
 class ProjectServiceImpl implements ProjectService {
@@ -20,18 +18,19 @@ class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Try<Project> createProject(String name, Long leadUserId) {
-        return Try.of(() -> {
-            Optional<User> leadUser = userService.findById(leadUserId);
-            if(!leadUser.isPresent())
-                throw new UserNotFoundException(leadUserId, "ProjectServiceImpl::crateProject");
-            Backlog savedBacklog = this.backlogRepository.save(new Backlog());
-            Project project = new Project();
-            project.setName(name);
-            project.setBacklog(savedBacklog);
-            project.setLead(leadUser.get());
-            Project savedProject = this.projectRepository.save(project);
-            return project;
-        });
+    public Mono<Project> createProject(String name, Long leadUserId) {
+        return
+            userService.findById(leadUserId)
+                    .switchIfEmpty(Mono.error(new UserNotFoundException(leadUserId, "ProjectServiceImpl::crateProject")))
+                    .flatMap(u -> this.backlogRepository.save(new Backlog())
+                                        .map(b -> Tuple.of(u, b)))
+                    .flatMap(t -> {
+                        Project project = new Project();
+                        project.setName(name);
+                        project.setBacklog(t._2);
+                        project.setLead(t._1);
+                        return this.projectRepository.save(project);
+                    });
     }
+
 }
