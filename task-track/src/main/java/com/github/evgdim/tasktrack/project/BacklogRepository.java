@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-interface BacklogRepository extends ReactiveCrudRepository<Backlog, Long> {
+interface BacklogRepository extends ReactiveCrudRepository<Backlog, Long>, CustomBacklogRepository {
     @Query("select * from BACKLOG b join PROJECT p on(b.project_id = p.id) where p.id = :id")
     Mono<Backlog> findBacklogByProjectId(Long id);
 }

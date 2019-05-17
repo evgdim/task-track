@@ -33,7 +33,7 @@ class ProjectController {
 
     @GetMapping("/{id}/backlog")
     public Mono<Backlog> getBacklogByProjectId(@PathVariable Long id) {
-        return this.backlogRepository.findBacklogByProjectId(id).log();
+        return this.backlogRepository.findBacklogWithTasksById(id);
     }
 
     @PostMapping
