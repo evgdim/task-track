@@ -11,5 +11,4 @@ class Project {
     private Long id;
     private String name;
     private Long leadId;
-    private Long backlogId;
 }
