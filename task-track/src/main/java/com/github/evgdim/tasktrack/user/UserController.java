@@ -4,6 +4,7 @@ import com.github.evgdim.tasktrack.user.User;
 import com.github.evgdim.tasktrack.user.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -14,6 +15,11 @@ public class UserController {
 
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @GetMapping("/current")
+    public Principal getCurrent(Principal principal) {
+        return principal;
     }
 
     @GetMapping

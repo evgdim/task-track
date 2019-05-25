@@ -1,3 +1,8 @@
+oauth
+------------------------------
+curl -X POST -H "Accept: application/json" -H "Authorization: Basic Y2xpZW50YXBwOjEyMzQ1Ng==" -F "password=pass" -F "username=user" -F "grant_type=password" -F "scope=read" -F "client_secret=123456" -F "client_id=clientapp" "http://localhost:8080/oauth/token"
+curl -X GET -H "Authorization: Bearer 21f425b2-d175-42f7-a3a3-a0d939cf8be5" http://localhost:8080/users/current
+
 Project
 ------------------------------
 curl -i -X POST -H "Content-Type: application/json" -d'{"name":"MyProject"}' http://localhost:8080/projects
